@@ -13,14 +13,44 @@ $(document).ready(function() {
     url: '/api/albums',
     success: renderMultipleAlbums
   });
+
+
+
+  $(".form-horizontal").on("submit", function(e) {
+    e.preventDefault();
+    let newAlbumData = $(".form-horizontal").serialize();
+    console.log("serialized data: ", newAlbumData);
+    $.ajax({
+      method: 'POST',
+
+      url: '/api/albums',
+      data: $(".form-horizontal").serialize(),
+      success: newAlbumSuccess,
+      error: newAlbumError
+    });
+
+    function newAlbumSuccess(album) {
+      //console.log(album);
+      renderAlbum(album);
+    }
+    $(this).trigger("reset");
+
+    function newAlbumError(err) {
+      console.log("error creating new album", err);
+    }
+  });
+
 });
+
+
+
+
 
 function renderMultipleAlbums(albums) {
   albums.forEach(function(album) {
     renderAlbum(album);
   });
 }
-
 
 // this function takes a single album and renders it to the page
 function renderAlbum(album) {
