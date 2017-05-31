@@ -19,7 +19,7 @@ $(document).ready(function() {
   $(".form-horizontal").on("submit", function(e) {
     e.preventDefault();
     let newAlbumData = $(".form-horizontal").serialize();
-    console.log("serialized data: ", newAlbumData);
+    
     $.ajax({
       method: 'POST',
 

@@ -17,8 +17,11 @@ function index(req, res) {
 // POST /api/albums
 function create(req, res) {
   // create an album based on request body and send it back as JSON
+  //console.log("the req.body is", req.body);
 
-  console.log("the req.body is", req.body);
+  var genres = req.body.genres.split(',').map(function(item) { return item.trim(); } );
+ req.body.genres = genres;
+ console.log(genres);
 
   db.Album.create(req.body, function(err, album) {
     if (err) {
